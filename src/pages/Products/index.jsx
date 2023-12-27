@@ -1,46 +1,80 @@
+
 import { useEffect, useState } from 'react';
-import Button from '../../components/button';
-import './index.css'
+import './index.css';
 import Slider from '@mui/material/Slider';
 
 export default function Products(props) {
   const { still } = props;
   const [data, setData] = useState([]);
-
-  function handleproduct(e) {
-    alert(e.attributes.category)
-  }
-
-  function handleclick(){
-    alert('hello')
-  }
+  const [filteredData, setFilteredData] = useState([]);
+  const [searchInput, setSearchInput] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedCompany, setSelectedCompany] = useState('all');
+  const [selectedPrice, setSelectedPrice] = useState(0);
 
   useEffect(() => {
     fetch('https://strapi-store-server.onrender.com/api/products')
       .then(res => res.json())
       .then(json => {
         setData(json.data);
+        setFilteredData(json.data); // Initially, display all data
       })
       .catch(error => {
         console.error('Fetch error:', error);
       });
   }, []);
 
-  console.log(26, data);
+  const handleProductClick = (e) => {
+    alert(e.attributes.category);
+  };
+
+  const handleSearch = (event) => {
+
+  
+    let updatedData = data.filter((product) =>
+      product.attributes.title.toLowerCase().includes(searchInput.toLowerCase())
+    );
+  
+    if (selectedCategory !== 'all') {
+      updatedData = updatedData.filter(
+        (product) => product.attributes.category === selectedCategory
+      );
+    }
+  
+    if (selectedCompany !== 'all') {
+      updatedData = updatedData.filter(
+        (product) => product.attributes.company === selectedCompany
+      );
+    }
+  
+    updatedData = updatedData.filter(
+      (product) => parseFloat(product.attributes.price) <= selectedPrice
+    );
+  
+    // Update the filtered data state
+    setFilteredData(updatedData);
+  
+    // Set filtered data to all data if search input is empty
+    if (!searchInput) {
+      setFilteredData(data);
+    }
+    event.preventDefault();
+  };
+  
+  
 
   return (
-
-    <div style={still ? {background: '#272935', color: 'white'} : { background: 'white' } }  className='product-block' >
-      <div className='products-block' style={still ? {background: '#272935', color: 'white'} : { background: 'white' } } >
-        <form style={still ? {background: '#181920'} : { background: '#F0F6FF' }}>
+    <div style={still ? { background: '#272935', color: 'white' } : { background: 'white' }} className='product-block'>
+      <div className='products-block' style={still ? { background: '#272935', color: 'white' } : { background: 'white' }}>
+        <form style={still ? { background: '#181920' } : { background: '#F0F6FF' }} onSubmit={handleSearch}>
           <div className="form-top">
             <div className="input">
               <label htmlFor="search">Search product</label><br />
-              <input value style={still ? { background: '#272935', color: 'white' } : { background: '#F0F6FF' }} type="text" id='text' />
+              <input style={still ? { background: '#272935', color: 'white' } : { background: '#F0F6FF' }} type="text" id='text' value={searchInput} onChange={(e) => setSearchInput(e.target.value)} />
             </div>
             <div className="select">
               <label htmlFor="select">Select category</label><br />
-              <select style={still ? { background: '#272935', color: 'white' } : { background: '#F0F6FF' }} id='select'>
+              <select style={still ? { background: '#272935', color: 'white' } : { background: '#F0F6FF' }} id='select' value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
                 <option value="all">all</option>
                 <option value="Tables">Tables</option>
                 <option value="Chairs">Chairs</option>
@@ -51,7 +85,7 @@ export default function Products(props) {
             </div>
             <div className="select">
               <label htmlFor="select">Select company</label><br />
-              <select style={still ? { background: '#272935', color: 'white' } : { background: '#F0F6FF' }} id='select'>
+              <select style={still ? { background: '#272935', color: 'white' } : { background: '#F0F6FF' }} id='select' value={selectedCompany} onChange={(e) => setSelectedCompany(e.target.value)}>
                 <option value="all">all</option>
                 <option value="Modenza">Modenza</option>
                 <option value="Luxora">Luxora</option>
@@ -60,53 +94,26 @@ export default function Products(props) {
                 <option value="Homestead">Homestead</option>
               </select>
             </div>
-            <div className="select">
-              <label htmlFor="select">Sort by</label><br />
-              <select style={still ? { background: '#272935', color: 'white' } : { background: '#F0F6FF' }} id='select'>
-                <option value="a-z">a-z</option>
-                <option value="z-a">z-a</option>
-                <option value="high">high</option>
-                <option value="low">low</option>
-              </select>
-            </div>
-          </div>
-          <div className="form-bottom">
             <div className="slider">
               <label htmlFor="slider">Select price</label>
-              <Slider defaultValue={0} max={1000} aria-label="Default" valueLabelDisplay="auto" />
+              <Slider defaultValue={0} max={100000} aria-label="Default" valueLabelDisplay="auto" value={selectedPrice} onChange={(e, value) => setSelectedPrice(value)} />
               <div><p>Max : $1,000.00</p></div>
             </div>
-            <div className="form-checkbox">
-              <label htmlFor="checkbox">free shipping</label><br />
-              <input type="checkbox" id="checkbox" />
-            </div>
-
-            <div className="button">
-              <Button buttonclick = {handleclick} still={still ? { background: '#FF7AC6', width: '200px', hover: '#000DFF' } : { background: '#057AFF', color: 'white', width: '250px', hover: '#000DFF' }} text='Search' />
-              <Button still={still ? { background: '#FFB86B', width: '200px' } : { background: '#C149AD', color: 'white', width: '250px' }} text='Reset' />
-            </div>
-
           </div>
+          <button type="submit">Search</button>
         </form>
       </div>
-      <h4 style={still ? {background: '#272935', color: 'white'} : { background: 'white' }} >22 products</h4>
-      <div style={still ? { background: 'black' } : { background: 'gray'}} className="hr"></div>
-
-      <div style={still ? { background: '#272935', color: 'white' } : { background: 'white' }} className="products">
-
-        {data.map((e, index) => (
-          <>
-            <div key={index} style={still ? { background: '#272935', color: 'white' } : { background: 'white' }} onClick={handleproduct} className="product">
-              <img src={e.attributes.image} alt="" />
-              <h1>{e.attributes.title}</h1>
-              <li key={index}>{e.attributes.company}</li>
-              <p>${e.attributes.price}</p>
-            </div>
-          </>
-
+      <div className="products">
+        {filteredData.map((e, index) => (
+          <div key={index} style={still ? { background: '#272935', color: 'white' } : { background: 'white' }} onClick={() => handleProductClick(e)} className="product">
+            {/* Your product display elements */}
+            <img src={e.attributes.image} alt="" />
+            <h1>{e.attributes.title}</h1>
+            <li key={index}>{e.attributes.company}</li>
+            <p>${e.attributes.price}</p>
+          </div>
         ))}
       </div>
-    </div >
-
-  )
+    </div>
+  );
 }
