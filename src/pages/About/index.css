@@ -1,0 +1,27 @@
+.About h1{
+    text-align: center;
+    font-size: 3.75rem;
+}
+
+.About{
+    padding-top: 50px;
+    height: 100%;
+}
+.About span{
+    padding: 14px 15px 10px 15px;
+    margin-top: -5px;
+    background-color: #057AFF;
+    font-size: 2.225rem;
+    border-radius: 15px;
+}
+
+.About p{
+    width: 660px;
+    line-height: 2rem;
+    margin-left: 28%;
+    margin-top: 30px;
+    padding-bottom: 300px;
+    font-weight: 400;
+    font-size: 1.125rem;
+}
+

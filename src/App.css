@@ -1,0 +1,97 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif;
+    font-size: 16px;
+    transition: all 0.1s;
+}
+
+.logo {
+    width: 50px;
+    height: 45px;
+    background-color: #057AFF;
+    border-radius: 10px;
+}
+
+header a:active,
+header a:focus {
+    background-color: #414558;
+    padding: 10px;
+    color: white;
+    border-radius: 10px;
+}
+
+.logo p {
+    color: lightgray;
+    font-size: 39px;
+    margin-top: 2px;
+    text-align: center;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #EFF5FE;
+    width: 100%;
+    padding: 10px 130px 10px 100px;
+    margin-left: -5px;
+}
+
+.checkbox input[type='checkbox'] {
+    width: 70px;
+    height: 20px;
+    appearance: none;
+}
+
+.checkbox{
+    background-color: white;
+    width: 45px;
+    height: 20px;
+    appearance: none;
+    border-radius: 50px;
+    margin-right: 20px;
+    box-shadow: 4px 4px -1px gray;
+}
+
+.theme{
+    display: flex;
+}
+
+.checked{
+    width: 20px;
+    background-color: red;
+    border-radius: 50px;
+    height: 20px;
+    transition: all 0.6s;
+}
+
+ul {
+    display: flex;
+    gap: 10px;
+    list-style: none;
+
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.register{
+    width: 100%;
+}
+
+.login{
+    padding-left: 10px;
+}
+
+.register li{
+    color: lightgray;
+    padding: 10px;
+    font-size: 14px;
+}
