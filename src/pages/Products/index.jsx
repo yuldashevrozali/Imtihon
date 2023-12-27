@@ -100,7 +100,7 @@ export default function Products(props) {
               <div><p>Max : $1,000.00</p></div>
             </div>
           </div>
-          <button type="submit">Search</button>
+          <button onClick={handleSearch} type="submit">Search</button>
         </form>
       </div>
       <div className="products">
