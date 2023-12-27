@@ -10,6 +10,18 @@ export default function Sign() {
     event.preventDefault();
     let data = JSON.parse(localStorage.getItem('users')) || [];
     console.log(7, data);
+    var email1;
+    var password1;
+    data.map((e) => {
+      console.log(e.password);
+      email1 = e.email;
+      password1 = e.password
+    })
+    if (email1 == email && password == password1) {
+      alert('muvafiqiyatli kirdingiz');
+    } else{
+      alert('xato malumot kiritdingiz');
+    }
   }
 
   return (
