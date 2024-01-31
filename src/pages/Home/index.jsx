@@ -17,7 +17,8 @@ export default function Home(props) {
         <div className="block-left">
           <h1>We are changing the way people shop</h1>
           <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempore repellat explicabo enim soluta temporibus asperiores aut obcaecati perferendis porro nobis.</p>
-          <Button still={still ? { background: '#FF7AC6' } : { background: '#057AFF', color: 'white' }} text='Our Products' />
+          {/* <Button still={still ? { background: '#FF7AC6' } : { background: '#057AFF', color: 'white' }} text='Our Products' /> */}
+          <button className="bg-green-500">Products</button>
         </div>
         <div style={still3} className="block-right">
           <div className="img">

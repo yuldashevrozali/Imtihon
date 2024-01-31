@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter, Link, Route, Routes, json, useLocation } from 'react-router-dom';
+import { BrowserRouter, Link, Route, Routes, } from 'react-router-dom';
 import './App.css';
 import Login from './pages/login';
 import Home from './pages/Home';
@@ -10,7 +10,7 @@ import Card from './pages/Card';
 function App() {
   const [on, setOn] = useState(false);
   // const location = useLocation();
-  console.log(13,location);
+  console.log(13, location);
 
   function handleCheckbox(e) {
     setOn(e.target.checked);
@@ -19,12 +19,16 @@ function App() {
   return (
     <BrowserRouter>
       <>
-      
+
         <Login still={on ? { background: '#414558', color: 'white' } : { background: '#021431' }} />
         <header style={on ? { background: '#181920', color: 'white' } : { background: '#F0F6FF' }}>
           <div style={on ? { background: '#FF7AC6', color: 'white' } : { background: '#057AFF' }} className="logo">
             <Link to="/"><p>C</p></Link>
           </div>
+          <button
+            class="inline-block cursor-pointer rounded-md bg-gray-800 px-4 py-3 text-center text-sm font-semibold uppercase text-white transition duration-200 ease-in-out hover:bg-gray-900">
+            Button
+          </button>
           <nav>
             <ul>
               <li><Link to="/">Home</Link></li>
@@ -46,7 +50,7 @@ function App() {
             )}
           </div>
         </header>
-        
+
         <Routes>
           <Route path='/' element={
             <Home still3={on ? { background: '#414558', color: 'white' } : { background: '#021431' }}

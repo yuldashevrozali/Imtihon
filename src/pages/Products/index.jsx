@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import './index.css';
 import Slider from '@mui/material/Slider';
-import { Link } from '@mui/material';
 
 export default function Products(props) {
   const { still } = props;
